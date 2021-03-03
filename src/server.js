@@ -15,9 +15,6 @@ app.set('port', process.env.PORT || 4000);
 app.set('views',path.join(__dirname , 'views'));
 app.set('view engine', 'pug');
 
-
-app.use(multer({dest: path.join(__dirname, "./public/upload/temp")}).single("image"));
-
 //midelwares 
 app.use(express.urlencoded({extended: false}));
 app.use(morgan('dev'));

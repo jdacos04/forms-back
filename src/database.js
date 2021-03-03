@@ -5,7 +5,7 @@ const pool =new postgres.Pool({
     user: 'postgres',
     host: 'localhost',
     password: 'princho4',
-    database: 'culo',
+    database: 'forms',
     port: '5432'
 });
 
