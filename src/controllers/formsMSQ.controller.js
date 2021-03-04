@@ -1,7 +1,7 @@
 const pool = require("../database");
 
 
-formsMSQCtrl={};
+const formsMSQCtrl={};
 
 
 formsMSQCtrl.getFormById = async (req, res) => {

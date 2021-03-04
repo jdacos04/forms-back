@@ -46,7 +46,7 @@ formsSSCtrl.deleteForm = async (req, res) => {
 
 //single-selection-questions
 
-formsSSQCtrl.getFormById = async (req, res) => {
+formsSSQCtrl.getFormByIdQ = async (req, res) => {
     const id = parseInt(req.params.id);
     const response = await pool.query('SELECT * FROM single_selection_questions WHERE single_selection_qID = $1', [id]);
     res.json(response.rows);

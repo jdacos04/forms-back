@@ -24,10 +24,10 @@ formsCtrl.createFrom =async (req,res)=>{
      })
 }
 
-formsCtrl.deleteFrom =async (res,req)=>{
+formsCtrl.updateFrom =async (res,req)=>{
     const id=parseint (req.body.id);
     const {formname}= req.body;
-    const response= await pool.query('UPDATE form set formname =$1 WHERE formID =$2',[
+    const response= await pool.query('UPDATE form set form_name =$1 WHERE formID =$2',[
         formname,
         id
     ]);
@@ -38,7 +38,7 @@ formsCtrl.deleteFrom =async (res,req)=>{
 
 formsCtrl.deleteForm = async (req, res) => {
     const id = parseInt(req.params.id);
-    await pool.query('DELETE FROM form where formID = $1', [
+    await pool.query('DELETE FROM form where formID= $1', [
         id
     ]);
     res.json(`form ${id} deleted Successfully`);

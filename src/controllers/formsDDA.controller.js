@@ -1,7 +1,7 @@
 const pool = require("../database");
 
 
-fomrsDDACtrl={};
+const fomrsDDACtrl={};
 
 
 fomrsDDACtrl.getFormById = async (req, res) => {
