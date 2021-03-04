@@ -1,7 +1,5 @@
-const { use } = require("passport");
-const User = require('../models/User');
 const passport = require("passport");
-const {Query,QueryResult} = require ('pg');
+const pool = require("../database");
 userCtrl={};
 
 //registor temporal
@@ -13,24 +11,24 @@ userCtrl.getUser= async (req,res) => {
     res.json({
         message: 'User Added successfully',
         body: {
-            user: {username, email}
+            user: {name, email}
         }
     })
 };
 
 userCtrl.getUserById = async (req, res) => {
     const id = parseInt(req.params.id);
-    const response = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+    const response = await pool.query('SELECT * FROM users WHERE users_IS= $1', [id]);
     res.json(response.rows);
 };
 
 userCtrl.createUser = async (req, res) => {
-    const { name, email } = req.body;
-    const response = await pool.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email]);
+    const { name, email,password } = req.body;
+    const response = await pool.query('INSERT INTO users (name, email,password) VALUES ($1, $2,$3)', [name, email,password]);
     res.json({
         message: 'User Added successfully',
         body: {
-            user: {name, email}
+            user: {name, email,password}
         }
     })
 };
@@ -39,7 +37,7 @@ userCtrl.updateUser = async (req, res) => {
     const id = parseInt(req.params.id);
     const { name, email } = req.body;
 
-    const response =await pool.query('UPDATE users SET name = $1, email = $2 WHERE id = $3', [
+    const response =await pool.query('UPDATE users SET name = $1, email = $2 WHERE users_ID = $3', [
         name,
         email,
         id
@@ -49,7 +47,7 @@ userCtrl.updateUser = async (req, res) => {
 
 userCtrl.deleteUser = async (req, res) => {
     const id = parseInt(req.params.id);
-    await pool.query('DELETE FROM users where id = $1', [
+    await pool.query('DELETE FROM users where users_ID = $1', [
         id
     ]);
     res.json(`User ${id} deleted Successfully`);

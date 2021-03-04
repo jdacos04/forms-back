@@ -29,7 +29,7 @@ formsSSCtrl.createFrom =async (req,res)=>{
 formsSSCtrl.UpdateFrom =async (res,req)=>{
     const id=parseint (req.body.id);
     const {answer}= req.body;
-    const response= await pool.query('UPDATE form set single_selection =$1 WHERE single_selectID =$2',[
+    const response= await pool.query('UPDATE single_selection_questions set answer  =$1 WHERE single_selectID =$2',[
         answer,
         id
     ]);
@@ -46,7 +46,7 @@ formsSSCtrl.deleteForm = async (req, res) => {
 
 //single-selection-questions
 
-formsSSQCtrl.getForm1ById = async (req, res) => {
+formsSSQCtrl.getFormById = async (req, res) => {
     const id = parseInt(req.params.id);
     const response = await pool.query('SELECT * FROM single_selection_questions WHERE single_selection_qID = $1', [id]);
     res.json(response.rows);
@@ -55,9 +55,9 @@ formsSSQCtrl.getForm1ById = async (req, res) => {
 
 
 
-formsSSQCtrl.createFrom1 =async (req,res)=>{
+formsSSQCtrl.createFrom =async (req,res)=>{
     const{questions} =req.body;
-    const response =await pool.query('INSERT INTO single_selection_questions(answer) VALUES ($1)')
+    const response =await pool.query('INSERT INTO single_selection_questions (questions) VALUES ($1)')
      res.json({
         message: 'fomr Added successfully',
         body: {
@@ -66,10 +66,10 @@ formsSSQCtrl.createFrom1 =async (req,res)=>{
      })
 }
 
-formsSSQCtrl.UpdateFrom1 =async (res,req)=>{
+formsSSQCtrl.UpdateFrom =async (res,req)=>{
     const id=parseint (req.body.id);
     const {questions}= req.body;
-    const response= await pool.query('UPDATE form ssingle_selection_questions =$1 WHERE single_selection_qID=$2',[
+    const response= await pool.query('UPDATE single_selection_questions set questions=$1 WHERE single_selection_qID=$2',[
         questions,
         id
     ]);
@@ -78,7 +78,7 @@ formsSSQCtrl.UpdateFrom1 =async (res,req)=>{
 
 
 
-formsSSQCtrl.deleteForm1 = async (req, res) => {
+formsSSQCtrl.deleteForm = async (req, res) => {
     const id = parseInt(req.params.id);
     await pool.query('DELETE FROM single_selection_questions where single_selection_qID = $1', [id]);
     res.json(`form ${id} deleted Successfully`);

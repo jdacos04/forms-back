@@ -38,15 +38,10 @@ formsACtrl.createFromAnswer =async (req,res)=>{
 }
 
 
-
-
-
-
-
 formsACtrl.UpdateFrom =async (res,req)=>{
     const id=parseint (req.body.id);
     const {answer}= req.body;
-    const response= await pool.query('UPDATE form set form_answer =$1 WHERE id =$2',[
+    const response= await pool.query('UPDATE form_answer  set answer =$1 WHERE id =$2',[
         answer,
         id
     ]);

@@ -4,6 +4,7 @@ const pool = require("../database");
 formsSACtrl={};
 
 
+
 formsSACtrl.getFormById = async (req, res) => {
     const id = parseInt(req.params.id);
     const response = await pool.query('SELECT * FROM form_short_answer  WHERE form_short_answerID = $1', [id]);
@@ -46,7 +47,7 @@ formsSACtrl.createFromAnswer =async (req,res)=>{
 formsSACtrl.UpdateFrom =async (res,req)=>{
     const id=parseint (req.body.id);
     const {answer}= req.body;
-    const response= await pool.query('UPDATE form set form_short_answer =$1 WHERE form_short_answerID =$2',[
+    const response= await pool.query('UPDATE form_short_answer set answer =$1 WHERE form_short_answerID =$2',[
         answer,
         id
     ]);
@@ -57,7 +58,7 @@ formsSACtrl.UpdateFrom =async (res,req)=>{
 
 formsSACtrl.deleteForm = async (req, res) => {
     const id = parseInt(req.params.id);
-    await pool.query('DELETE FROM form_answe WHERE form_short_answerID = $1', [id]);
+    await pool.query('DELETE FROM form_short_answer WHERE form_short_answerID = $1', [id]);
     res.json(`form ${id} deleted Successfully`);
 };
 
